@@ -1,0 +1,36 @@
+<?page id="index" title="Login"?>
+<zk xmlns="http://www.zkoss.org/2005/zul">
+    <borderlayout>
+
+        <center border="none">
+            <window width="400px" position="center" mode="overlapped" style="background-color:#323B55;" apply="com.example.demo.ui.loginController" >
+                <h:form id="f" name="f" action="/login" method="POST" xmlns:h="native">
+                    <groupbox>
+                        <grid style="border:none;">
+                            <rows> 
+                                <row>
+                                    <label style="font-weight:bold" value="${labels.user.label.username}" />
+                                    <textbox name="username" width="150px" placeholder="Username" />
+                                </row>
+                                <row>
+                                    <label style="font-weight:bold" value="${labels.user.label.password}" />
+                                    <textbox name="password" type="password" width="150px" placeholder="Password"/>
+                                </row>
+                                <row spans="2">
+                                    <div align="center">
+                                        <h:input type="submit" value="${labels.user.label.login}" style="width: 80px;" 
+                                        onclick="this.disabled=true;this.form.submit();"/>
+                                    </div>
+                                </row>
+                            </rows>
+                        </grid>
+                    </groupbox>
+                    <h:input type="hidden" name="${_csrf.parameterName}" value="${_csrf.token}" />
+                </h:form>
+                <html style="color:red; font-size: 12px;" if="${not empty param['error']}">
+                    <![CDATA[ <p style="text-align:center;">${SPRING_SECURITY_LAST_EXCEPTION.message}</p> ]]>
+                </html>
+            </window>
+        </center>
+    </borderlayout>
+</zk>
